@@ -45,64 +45,67 @@ class Temperaturer
         double[]    maxT = new double[antalVeckor + 1]; 
         double[]    sumT = new double[antalVeckor + 1]; 
         double[]    medelT = new double[antalVeckor + 1]; 
-        // koden ska skrivas här 
+        
+        //en loop för att ränka ut medeltemperaturen, 
+        //maxtemperaturen och minimumtemperaturen för varje vecka
         for (int vecka = 1; vecka <= antalVeckor; vecka++) 
         { 
+        	//maxT, minT och sumT definieras
         	maxT[vecka] = t[vecka][1];
         	minT[vecka] = t[vecka][1];
         	sumT[vecka] = 0;
         	
+        	//visar vilken vecka som visas
         	System.out.println("vecka" + vecka);
         	
+        	//räknar ut medeltemperaturen, maxtemperaturen och mintemperaturen på en specifik vecka
             for (int matning = 1; matning <= antalMatningarPerVecka; matning++) {
+            	//räknar ut summan av temperaturerna på en vecka
             	sumT[vecka] = t[vecka][matning] + sumT[vecka];
-            	medelT[vecka] = sumT[vecka] / antalMatningarPerVecka;
+            	
+            	//räknar ut maxtemperaturen och mintemperaturen för en specifik vecka
                 if (t[vecka][matning] > maxT[vecka]) {
                 	maxT[vecka] = t[vecka][matning];
                 }
                 if (t[vecka][matning] <= minT[vecka]) {
                 	minT[vecka] = t[vecka][matning];
-                }  
-                
+                }                 
             }
             
-            System.out.println("avg " + medelT[vecka]);
-            System.out.println("highest " + maxT[vecka]);
-            System.out.println("lowest " + minT[vecka] + "\n");
+         //räknar ut medeltemperaturen av summan
+         medelT[vecka] = sumT[vecka] / antalMatningarPerVecka;
             
+         // visa den minsta, den största och medeltemperaturen för varje vecka 
+         System.out.println("avg " + medelT[vecka]);
+         System.out.println("highest " + maxT[vecka]);
+         System.out.println("lowest " + minT[vecka] + "\n");      
         } 
         
-        
-        
-        // visa den minsta, den största och medeltemperaturen för varje vecka 
-        // koden ska skrivas här 
- 
         // den minsta, den största och medeltemperaturen - hela mätperioden 
         double    minTemp = minT[1]; 
         double    maxTemp = maxT[1]; 
         double 	  medelTemp = 0;
         double    totsum = 0;
-        // koden ska skrivas här 
-
         for (int vecka = 1; vecka <= antalVeckor; vecka++) 
         { 
+        	//summan av medeltemperaturerna
         	totsum = medelT[vecka] + totsum;
-        	medelTemp = totsum/antalVeckor;
+        	//utränkinga av medeltemperaturen under hela perioden
+        	medelTemp = totsum / antalVeckor;
+        	
+        	//uträkning av maxvärde och minimum värde under hela perioden
         	if (maxT[vecka] > maxTemp) {
         		maxTemp = maxT[vecka];
         	}
         	if (minT[vecka] <= minTemp) {
         		minTemp = minT[vecka];
         	}
-
         } 
         
         // visa den minsta, den största och medeltemperaturen i hela mätperioden 
         System.out.println("medel: " + medelTemp);
         System.out.println("max: " + maxTemp);
         System.out.println("min: " + minTemp);
-        
-        
         
         in.close();
     } 
